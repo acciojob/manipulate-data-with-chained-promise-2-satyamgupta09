@@ -1,34 +1,36 @@
-function intaliseArray() {
+function prom1(){
 	return new Promise((resolve)=>{
 		setTimeout(()=>{
-			resolve([1,2,3,4]);
+			resolve ([1, 2, 3, 4]);
 		},3000)
-	});
-}
-
-function evenNumber(arr) {
-	return new Promise((resolve)=>{
-		setTimeout(()=>{
-			const even = arr.filter((num)=>num%2==0);
-			document.getElementById("output").innerHTML+=even.map(x=>`<p>${x}</p>`);
-			resolve(even);
-		},1000)
 	})
 }
 
-function multiplyNumber(arr) {
+function prom2(arr){
 	return new Promise((resolve)=>{
 		setTimeout(()=>{
-			// document.getElementById("output").innerHTML+="";
-			let doubled = arr.map(x=>x*2);
-			document.getElementById("output").innerHTML+=doubled.map(x => `<p>${x}</p>`);
-			resolve(doubled);
-		},2000)
+			let newArr = arr.filter((num)=>num%2==0);
+			resolve(newArr)
+		},1000);
 	})
 }
 
-function helper() {
-	intaliseArray().then(evenNumber).then(multiplyNumber);
+function prom3(arr) {
+	return new Promise((resolve)=>{
+		setTimeout(()=>{
+			let newArr = arr.map((num)=>num*2);
+			resolve(newArr);
+		},2000);
+	})
 }
 
-window.onload = helper;
+prom1().then((res)=> { return prom2(res)})
+	.then((data)=>{
+	  document.getElementById("output").innerHTML =data.map((num)=>`<p>${num}</p>`);
+	  return prom3(data); 
+	})
+	.then((data2)=>
+		{
+			document.getElementById("output").innerHTML =data2.map((num)=>`<p>${num}</p>`);
+		}
+	)
