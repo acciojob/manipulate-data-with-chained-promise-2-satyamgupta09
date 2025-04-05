@@ -7,6 +7,7 @@ function prom1(){
 	})
 }
 
+
 function prom2(arr){
 	return new Promise((resolve)=>{
 		setTimeout(()=>{
